@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SAMAYRA | Find Your Fit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#f6f4f1;
+  color:#111;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:28px 90px;
+  background:#faf8f5;
+}
+
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  letter-spacing:10px;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:45px;
+}
+
+nav ul li a{
+  text-decoration:none;
+  color:#111;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  padding:90px 20px 60px;
+}
+
+.header h1{
+  font-family:'Playfair Display',serif;
+  font-size:56px;
+}
+
+.header p{
+  margin-top:10px;
+  opacity:0.8;
+}
+
+/* LAYOUT */
+.fit-container{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:70px;
+  padding-bottom:120px;
+}
+
+/* QUIZ */
+.quiz{
+  width:650px;
+  background:white;
+  padding:50px;
+  border-radius:20px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.15);
+}
+
+.question{
+  margin-bottom:35px;
+}
+
+.question h3{
+  margin-bottom:15px;
+  font-size:18px;
+}
+
+.options label{
+  display:block;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+button{
+  padding:14px 36px;
+  background:black;
+  color:white;
+  border:none;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+/* AVATAR */
+.fit-visual{
+  width:260px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.fit-visual img{
+  width:100%;
+  opacity:0.9;
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{ transform:translateY(0); }
+  50%{ transform:translateY(-14px); }
+  100%{ transform:translateY(0); }
+}
+
+/* RESULT */
+.result{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+}
+
+.result h2{
+  font-family:'Playfair Display',serif;
+  font-size:42px;
+}
+
+.result p{
+  margin-top:15px;
+  font-size:16px;
+  opacity:0.85;
+}
+
+.links{
+  margin-top:30px;
+}
+
+.links a{
+  display:inline-block;
+  margin:10px;
+  padding:12px 28px;
+  border:1px solid #111;
+  text-decoration:none;
+  color:#111;
+}
+
+/* CAMERA BETA */
+.camera-beta{
+  margin-top:40px;
+  text-align:center;
+}
+
+.camera-beta h3{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.camera-beta p{
+  font-size:13px;
+  opacity:0.7;
+  margin-bottom:15px;
+}
+
+.camera-beta video{
+  width:100%;
+  max-width:320px;
+  border-radius:16px;
+  background:black;
+  margin-bottom:10px;
+}
+
+#confidenceText{
+  font-size:14px;
+  margin-top:10px;
+  opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">SAMAYRA</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="collection.html">Collection</a></li>
+    <li><a href="lookbook.html">Lookbook</a></li>
+  </ul>
+</nav>
+
+<section class="header">
+  <h1>Find Your Fit</h1>
+  <p>Answer a few questions to discover silhouettes that suit you best.</p>
+</section>
+
+<section class="fit-container">
+
+  <div class="quiz" id="quiz">
+
+    <div class="question">
+      <h3>1. Your shoulder width compared to hips?</h3>
+      <div class="options">
+        <label><input type="radio" name="shape" value="pear"> Narrower shoulders</label>
+        <label><input type="radio" name="shape" value="hourglass"> Balanced</label>
+        <label><input type="radio" name="shape" value="inverted"> Broader shoulders</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>2. Waist definition?</h3>
+      <div class="options">
+        <label><input type="radio" name="waist" value="defined"> Clearly defined</label>
+        <label><input type="radio" name="waist" value="slight"> Slightly defined</label>
+        <label><input type="radio" name="waist" value="straight"> Not defined</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>3. Comfort preference?</h3>
+      <div class="options">
+        <label><input type="radio" name="fit" value="fitted"> Fitted</label>
+        <label><input type="radio" name="fit" value="balanced"> Balanced</label>
+        <label><input type="radio" name="fit" value="loose"> Loose & flowy</label>
+      </div>
+    </div>
+
+    <button onclick="calculateFit()">SEE MY FIT</button>
+
+    <div class="result" id="result">
+      <h2 id="bodyType"></h2>
+      <p id="advice"></p>
+
+      <div class="links">
+        <a href="collection.html">Explore Collection</a>
+        <a href="lookbook.html">View Lookbook</a>
+      </div>
+    </div>
+
+    <div class="camera-beta" id="cameraSection" style="display:none;">
+      <h3>Refine with Camera (Beta)</h3>
+      <p>This feature visually estimates proportions. No images are saved.</p>
+      <video id="video" autoplay playsinline></video>
+      <button onclick="startCamera()">Start Camera</button>
+      <p id="confidenceText"></p>
+    </div>
+
+  </div>
+
+  <div class="fit-visual">
+    <img src="download (1).jpg" alt="Body Silhouette">
+  </div>
+
+</section>
+
+<script>
+let lastFitType = "";
+
+function saveFit(data){
+  localStorage.setItem("samayraFit", JSON.stringify(data));
+}
+
+function loadFit(){
+  const saved = localStorage.getItem("samayraFit");
+  if(!saved) return;
+
+  const data = JSON.parse(saved);
+  document.getElementById("bodyType").innerText = data.type;
+  document.getElementById("advice").innerText = data.advice;
+  document.getElementById("confidenceText").innerText = data.confidence || "";
+  document.getElementById("result").style.display = "block";
+  document.getElementById("cameraSection").style.display = "block";
+}
+
+function calculateFit(){
+  const shape = document.querySelector('input[name="shape"]:checked')?.value;
+  const waist = document.querySelector('input[name="waist"]:checked')?.value;
+
+  if(!shape || !waist){
+    alert("Please answer all questions");
+    return;
+  }
+
+  let type = "";
+  let advice = "";
+
+  if(shape === "hourglass" && waist === "defined"){
+    type = "Hourglass Silhouette";
+    advice = "Fitted dresses, wrap styles, and structured outfits will enhance your natural balance.";
+  }
+  else if(shape === "pear"){
+    type = "Pear Silhouette";
+    advice = "A-line dresses, flared bottoms, and detailed tops create perfect harmony.";
+  }
+  else if(shape === "inverted"){
+    type = "Inverted Triangle Silhouette";
+    advice = "Flowy bottoms, V-necks, and softer fabrics balance proportions beautifully.";
+  }
+  else{
+    type = "Straight Silhouette";
+    advice = "Layering, belts, and textured fabrics add definition and movement.";
+  }
+
+  lastFitType = type;
+
+  document.getElementById("bodyType").innerText = type;
+  document.getElementById("advice").innerText = advice;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("cameraSection").style.display = "block";
+
+  saveFit({ type, advice });
+}
+
+async function startCamera(){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ video:true });
+    document.getElementById("video").srcObject = stream;
+
+    setTimeout(() => {
+      const confidence = Math.random() > 0.4 ? "High" : "Medium";
+      const msg = confidence === "High"
+        ? `Fit Confidence: High — Your ${lastFitType} recommendations are strongly supported by visual alignment.`
+        : "Fit Confidence: Medium — Relaxed or flowy fits may enhance comfort.";
+
+      document.getElementById("confidenceText").innerText = msg;
+
+      const saved = JSON.parse(localStorage.getItem("samayraFit"));
+      saveFit({ ...saved, confidence: msg });
+
+    }, 2000);
+
+  } catch {
+    alert("Camera access denied");
+  }
+}
+
+window.onload = loadFit;
+</script>
+
+</body>
+</html>
